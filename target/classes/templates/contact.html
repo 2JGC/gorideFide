@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Go Ride</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root{
+            --bg:#0A0505;
+            --panel:#1A0D0D;
+            --panel-2:#230F0F;
+            --border:#3A2727;
+            --red:#8A0000;
+            --white:#FFFFFF;
+            --muted:#94A3B8;
+            --muted-2:#CBD5E1;
+            --gray:#64748B;
+            --avatar:#334155;
+        }
+
+        *{ box-sizing:border-box; }
+
+        body{
+            margin:0;
+            background:var(--bg);
+            color:var(--white);
+            font-family:'Space Grotesk', sans-serif;
+        }
+
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        .page-wrapper{
+            width:100%;
+            overflow-x:hidden;
+            background:var(--bg);
+        }
+
+        .topbar{
+            height:73px;
+            background:var(--bg);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            position:sticky;
+            top:0;
+            z-index:50;
+        }
+
+        .topbar .inner{
+            width:100%;
+            max-width:1920px;
+            padding:0 48px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo-box{
+            width:127px;
+            height:53px;
+            background:#2a2a2a;
+            border-radius:4px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:11px;
+            color:#bbb;
+            text-transform:uppercase;
+        }
+
+        .menu-center{
+            display:flex;
+            align-items:center;
+            gap:110px;
+        }
+
+        .menu-center a{
+            font-size:11px;
+            line-height:16px;
+            font-weight:700;
+            letter-spacing:2.4px;
+            text-transform:uppercase;
+            color:var(--white);
+            position:relative;
+        }
+
+        .menu-center a.active::after{
+            content:"";
+            position:absolute;
+            left:0;
+            right:0;
+            bottom:-18px;
+            height:1px;
+            background:var(--white);
+        }
+
+        .top-actions{
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
+
+        .lang-switch{
+            width:80px;
+            height:37px;
+            border:1px solid var(--border);
+            border-radius:15px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:11px;
+            font-weight:700;
+            letter-spacing:2.4px;
+            text-transform:uppercase;
+            color:var(--white);
+        }
+
+        .user-btn{
+            width:39px;
+            height:38px;
+            border-radius:10px;
+            background:var(--red);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-size:14px;
+            font-weight:700;
+        }
+
+        .hero{
+            width:100%;
+            height:375px;
+            position:relative;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            overflow:hidden;
+            background:
+                linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url('/img/contact-hero.jpg');
+            background-size:cover;
+            background-position:center;
+        }
+
+        .hero-content{
+            position:relative;
+            z-index:2;
+            max-width:1523px;
+            padding:0 20px;
+        }
+
+        .hero-title{
+            font-size:36px;
+            font-weight:700;
+            line-height:16px;
+            text-transform:uppercase;
+            margin:0 0 28px 0;
+        }
+
+        .hero-title .red{ color:var(--red); }
+
+        .hero-subtitle{
+            margin:0 auto;
+            font-size:20px;
+            line-height:28px;
+            font-weight:400;
+            color:var(--muted-2);
+            max-width:1523px;
+        }
+
+        .contact-section{
+            max-width:1520px;
+            margin:88px auto 0 auto;
+            padding:0 32px;
+            display:grid;
+            grid-template-columns: 620px 1fr;
+            gap:110px;
+            align-items:start;
+        }
+
+        .contact-form-card{
+            background:var(--panel-2);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:32px;
+        }
+
+        .contact-form-card h2{
+            margin:0 0 8px 0;
+            font-size:30px;
+            line-height:36px;
+            font-weight:700;
+            color:var(--white);
+        }
+
+        .contact-form-card p{
+            margin:0 0 32px 0;
+            font-size:16px;
+            line-height:24px;
+            color:var(--muted);
+        }
+
+        .success-box{
+            margin-bottom:20px;
+            background:rgba(0,128,0,.15);
+            border:1px solid rgba(0,128,0,.35);
+            color:#d1fae5;
+            padding:14px 16px;
+            border-radius:8px;
+            font-size:14px;
+        }
+
+        .form-grid-2{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        }
+
+        .field-group{
+            margin-bottom:20px;
+        }
+
+        .field-label{
+            display:block;
+            margin-bottom:8px;
+            font-size:14px;
+            line-height:20px;
+            font-weight:500;
+            color:var(--muted);
+        }
+
+        .field-input,
+        .field-textarea{
+            width:100%;
+            background:var(--panel);
+            border:1px solid var(--panel);
+            border-radius:8px;
+            color:var(--white);
+            outline:none;
+            box-shadow:none;
+        }
+
+        .field-input{
+            height:57px;
+            padding:17px 16px 18px;
+            font-size:16px;
+            line-height:20px;
+        }
+
+        .field-textarea{
+            height:154px;
+            padding:16px;
+            resize:none;
+            font-size:16px;
+            line-height:24px;
+        }
+
+        .field-input::placeholder,
+        .field-textarea::placeholder{
+            color:var(--muted);
+        }
+
+        .send-btn{
+            width:218.64px;
+            height:56px;
+            background:var(--red);
+            border:none;
+            border-radius:8px;
+            color:#fff;
+            font-size:16px;
+            line-height:24px;
+            font-weight:700;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+        }
+
+        .send-btn:hover{
+            background:#a50000;
+        }
+
+        .info-side{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:28px 80px;
+        }
+
+        .info-card{
+            display:flex;
+            flex-direction:column;
+            align-items:flex-start;
+            gap:12px;
+        }
+
+        .icon-wrap{
+            width:48px;
+            height:48px;
+            background:rgba(138,0,0,.2);
+            border-radius:8px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:var(--red);
+            font-size:20px;
+            font-weight:700;
+        }
+
+        .info-card h3{
+            margin:0;
+            font-size:20px;
+            line-height:28px;
+            font-weight:700;
+            color:var(--white);
+        }
+
+        .info-card p{
+            margin:0;
+            font-size:16px;
+            line-height:24px;
+            color:var(--muted);
+            max-width:320px;
+        }
+
+        .map-box{
+            grid-column:1 / span 2;
+            margin-top:2px;
+            border:1px solid rgba(255,255,255,.1);
+            border-radius:12px;
+            overflow:hidden;
+            position:relative;
+            width:100%;
+            max-width:708px;
+            height:336px;
+            background:#d6d0cd;
+        }
+
+        .map-placeholder{
+            position:absolute;
+            inset:0;
+            background:#cfc7c2;
+        }
+
+        .map-overlay{
+            position:absolute;
+            left:17px;
+            bottom:17px;
+            width:153px;
+            min-height:94px;
+            background:rgba(35,15,15,.9);
+            border:1px solid rgba(138,0,0,.3);
+            border-radius:8px;
+            padding:16px;
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+        }
+
+        .map-overlay .title{
+            font-size:14px;
+            line-height:20px;
+            font-weight:700;
+            color:#fff;
+        }
+
+        .map-overlay .text{
+            font-size:12px;
+            line-height:16px;
+            color:var(--muted-2);
+        }
+
+        .map-overlay .link{
+            font-size:12px;
+            line-height:16px;
+            color:var(--red);
+            font-weight:700;
+            margin-top:2px;
+        }
+
+        .testimonials{
+            max-width:1520px;
+            margin:120px auto 0 auto;
+            padding:0 32px;
+        }
+
+        .section-title-wrap{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:16px;
+            margin-bottom:64px;
+        }
+
+        .section-title{
+            margin:0;
+            font-size:36px;
+            line-height:40px;
+            font-weight:700;
+            color:#fff;
+            text-align:center;
+        }
+
+        .section-line{
+            width:80px;
+            height:4px;
+            background:var(--red);
+        }
+
+        .testimonial-grid{
+            display:grid;
+            grid-template-columns:repeat(3, 1fr);
+            gap:32px;
+        }
+
+        .testimonial-card{
+            background:var(--panel-2);
+            border:1px solid rgba(255,255,255,.1);
+            border-radius:12px;
+            padding:32px;
+            min-height:293px;
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+        }
+
+        .stars{
+            color:var(--red);
+            font-size:18px;
+            letter-spacing:1px;
+            line-height:19px;
+        }
+
+        .testimonial-text{
+            font-size:16px;
+            line-height:24px;
+            color:var(--muted-2);
+            margin:0;
+            min-height:96px;
+        }
+
+        .testimonial-footer{
+            padding-top:16px;
+            display:flex;
+            align-items:center;
+            gap:12px;
+            margin-top:auto;
+        }
+
+        .avatar{
+            width:40px;
+            height:40px;
+            background:var(--avatar);
+            border-radius:9999px;
+            flex-shrink:0;
+        }
+
+        .avatar-info{
+            display:flex;
+            flex-direction:column;
+            gap:0;
+        }
+
+        .avatar-name{
+            font-size:14px;
+            line-height:20px;
+            font-weight:700;
+            color:#fff;
+        }
+
+        .avatar-country{
+            font-size:12px;
+            line-height:16px;
+            color:var(--gray);
+        }
+
+        .faq-section{
+            max-width:1530px;
+            margin:124px auto 0 auto;
+            padding:64px 192px;
+            background:rgba(35,15,15,.5);
+        }
+
+        .faq-list{
+            display:flex;
+            flex-direction:column;
+            gap:16px;
+            margin-top:48px;
+        }
+
+        .faq-item{
+            border:1px solid rgba(255,255,255,.1);
+            border-radius:12px;
+            background:rgba(255,255,255,.05);
+            overflow:hidden;
+        }
+
+        .faq-question{
+            width:100%;
+            background:transparent;
+            border:none;
+            color:#fff;
+            font-size:18px;
+            line-height:28px;
+            font-weight:700;
+            text-align:left;
+            padding:24px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            cursor:pointer;
+        }
+
+        .faq-question span:last-child{
+            color:var(--red);
+            font-size:20px;
+            line-height:1;
+        }
+
+        .faq-answer{
+            border-top:1px solid rgba(255,255,255,.05);
+            padding:16px 24px 24px 24px;
+            font-size:16px;
+            line-height:26px;
+            color:var(--muted);
+            max-width:816px;
+        }
+
+        .footer{
+            width:100%;
+            margin-top:160px;
+            background:var(--panel);
+            border:1px solid var(--border);
+            min-height:464px;
+        }
+
+        .footer-inner{
+            max-width:1731px;
+            margin:0 auto;
+            padding:87px 32px 34px 32px;
+        }
+
+        .footer-grid{
+            display:grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap:140px;
+            align-items:start;
+        }
+
+        .footer-logo-placeholder{
+            width:235px;
+            height:109px;
+            background:#2a2a2a;
+            border-radius:4px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#bbb;
+            font-size:12px;
+            text-transform:uppercase;
+        }
+
+        .socials{
+            margin-top:26px;
+            display:flex;
+            gap:24px;
+        }
+
+        .social{
+            width:22px;
+            height:22px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:var(--red);
+            font-size:18px;
+            font-weight:700;
+        }
+
+        .footer-heading{
+            margin:0 0 24px 0;
+            font-size:11px;
+            line-height:40px;
+            letter-spacing:1px;
+            text-transform:uppercase;
+            font-weight:700;
+            color:var(--red);
+        }
+
+        .footer-links{
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+        }
+
+        .footer-links a,
+        .footer-links div{
+            font-size:11px;
+            line-height:40px;
+            letter-spacing:1px;
+            text-transform:uppercase;
+            font-weight:700;
+            color:#fff;
+        }
+
+        .footer-divider{
+            margin-top:36px;
+            border-top:3px solid var(--border);
+        }
+
+        .footer-copy{
+            text-align:center;
+            margin-top:28px;
+            font-size:11px;
+            line-height:40px;
+            letter-spacing:1px;
+            text-transform:uppercase;
+            color:#9E9E9E;
+            font-weight:700;
+        }
+
+        @media (max-width: 1400px){
+            .contact-section{
+                grid-template-columns:1fr;
+                gap:60px;
+            }
+
+            .contact-form-card{
+                max-width:700px;
+            }
+
+            .faq-section{
+                padding:64px 48px;
+            }
+
+            .testimonial-grid{
+                grid-template-columns:1fr;
+            }
+
+            .footer-grid{
+                grid-template-columns:1fr;
+                gap:40px;
+            }
+        }
+
+        @media (max-width: 992px){
+            .menu-center{
+                gap:32px;
+                flex-wrap:wrap;
+                justify-content:center;
+            }
+
+            .topbar .inner{
+                flex-direction:column;
+                gap:18px;
+                padding:20px;
+            }
+
+            .topbar{
+                height:auto;
+                padding:10px 0 20px 0;
+            }
+
+            .hero-title{
+                font-size:28px;
+            }
+
+            .hero-subtitle{
+                font-size:16px;
+                line-height:24px;
+            }
+
+            .form-grid-2,
+            .info-side{
+                grid-template-columns:1fr;
+            }
+
+            .map-box{
+                grid-column:auto;
+                max-width:100%;
+            }
+
+            .faq-section{
+                padding:48px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <header class="topbar">
+        <div class="inner">
+            <a th:href="@{/}" class="logo-box">logo</a>
+
+            <nav class="menu-center">
+                <a th:href="@{/}">Home</a>
+                <a th:href="@{/book-now}">Book Now</a>
+                <a th:href="@{/gallery}">Gallery</a>
+                <a th:href="@{/contact}" class="active">Contact Us</a>
+            </nav>
+
+            <div class="top-actions">
+                <div class="lang-switch">EN/ES</div>
+                <div class="user-btn">●</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Contact <span class="red">Us</span></h1>
+            <p class="hero-subtitle">
+                We're here to help you start your adventure. Whether you have questions about our fleet or routes, our team is ready.
+            </p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-form-card">
+            <h2>Send us a Message</h2>
+            <p>Fill out the form below and we will get back to you within 24 hours.</p>
+
+            <div th:if="${mensajeExito}" class="success-box" th:text="${mensajeExito}"></div>
+
+            <form th:action="@{/contact}" method="post" th:object="${contactoMensaje}">
+                <div class="form-grid-2">
+                    <div class="field-group">
+                        <label class="field-label">Name</label>
+                        <input type="text" class="field-input" th:field="*{nombre}" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Email</label>
+                        <input type="email" class="field-input" th:field="*{email}" placeholder="yourname@email.com" required>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Subject</label>
+                    <input type="text" class="field-input" th:field="*{asunto}" placeholder="How can we help?" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Message</label>
+                    <textarea class="field-textarea" th:field="*{mensaje}" placeholder="Tell us more about your inquiry..." required></textarea>
+                </div>
+
+                <button type="submit" class="send-btn">
+                    <span>Send Message</span>
+                    <span>➤</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="info-side">
+            <div class="info-card">
+                <div class="icon-wrap">⌖</div>
+                <h3>Our Location</h3>
+                <p>Paseo Colón, San José, Costa Rica</p>
+            </div>
+
+            <div class="info-card">
+                <div class="icon-wrap">✆</div>
+                <h3>Call Us</h3>
+                <p>+506 8888-0000</p>
+            </div>
+
+            <div class="info-card">
+                <div class="icon-wrap">✉</div>
+                <h3>Email Us</h3>
+                <p>info@goridemoto.com</p>
+            </div>
+
+            <div class="info-card">
+                <div class="icon-wrap">◷</div>
+                <h3>Working Hours</h3>
+                <p>Mon - Sun: 8:00 AM - 6:00 PM</p>
+            </div>
+
+            <div class="map-box">
+                <div class="map-placeholder"></div>
+
+                <div class="map-overlay">
+                    <div class="title">Main Office</div>
+                    <div class="text">San José, Costa Rica</div>
+                    <div class="link">Get Directions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="section-title-wrap">
+            <h2 class="section-title">What Our Riders Say</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Incredible experience! The bike was in perfect condition and the support team helped us plan an amazing route through the Nicoya Peninsula."
+                </p>
+                <div class="testimonial-footer">
+                    <div class="avatar"></div>
+                    <div class="avatar-info">
+                        <div class="avatar-name">Marco S.</div>
+                        <div class="avatar-country">Italy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Best way to see Costa Rica. GoRide Moto made everything so easy. The insurance coverage gave us total peace of mind during the trip."
+                </p>
+                <div class="testimonial-footer">
+                    <div class="avatar"></div>
+                    <div class="avatar-info">
+                        <div class="avatar-name">Sarah J.</div>
+                        <div class="avatar-country">USA</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "The staff is extremely knowledgeable. They provided us with gear that actually fit and worked well. Will definitely rent again!"
+                </p>
+                <div class="testimonial-footer">
+                    <div class="avatar"></div>
+                    <div class="avatar-info">
+                        <div class="avatar-name">David L.</div>
+                        <div class="avatar-country">Canada</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-title-wrap">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span>What documents do I need to rent a motorcycle?</span>
+                    <span>⌃</span>
+                </button>
+                <div class="faq-answer">
+                    To rent a motorcycle with GoRide Moto, you will need a valid passport and a current driver's license with a motorcycle endorsement from your home country.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span>Is insurance included?</span>
+                    <span>⌄</span>
+                </button>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span>What is the security deposit?</span>
+                    <span>⌄</span>
+                </button>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span>Can I cross borders with the rental bike?</span>
+                    <span>⌄</span>
+                </button>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span>What happens if I have a breakdown?</span>
+                    <span>⌄</span>
+                </button>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    <span>Are helmets and gear provided?</span>
+                    <span>⌄</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo-placeholder">logo</div>
+
+                    <div class="socials">
+                        <div class="social">f</div>
+                        <div class="social">◎</div>
+                        <div class="social">◔</div>
+                        <div class="social">✉</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Menu</h3>
+                    <div class="footer-links">
+                        <a th:href="@{/}">Home</a>
+                        <a th:href="@{/book-now}">Book Now</a>
+                        <a th:href="@{/about}">About Us</a>
+                        <a th:href="@{/gallery}">Gallery</a>
+                        <a th:href="@{/faqs}">FAQs</a>
+                        <a th:href="@{/contact}">Contact Us</a>
+                        <a th:href="@{/terms}">Terms and Conditions</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Work Hours</h3>
+                    <div class="footer-links">
+                        <div>Everyday 8AM - 5PM</div>
+                    </div>
+
+                    <h3 class="footer-heading" style="margin-top:18px;">Contact Us</h3>
+                    <div class="footer-links">
+                        <div>+506 8526-5489</div>
+                        <div>goride@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+            <div class="footer-copy">© 2026 Go Ride Moto | Costa Rica | Pura Vida • All Rights Reserved</div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+body{
+    font-family: Arial;
+    margin:40px;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+}
+
+nav a{
+    margin-right:15px;
+    text-decoration:none;
+    font-weight:bold;
+}

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Book Now | Go Ride Moto</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+
+            body{
+                background:#0A0505;
+                color:#FFFFFF;
+                font-family:'Space Grotesk', sans-serif;
+            }
+
+            a{
+                text-decoration:none;
+                color:inherit;
+            }
+
+            .page-wrapper{
+                background:#0A0505;
+                min-height:100vh;
+            }
+
+            .navbar-custom{
+                background:#0A0505;
+                min-height:73px;
+                border-bottom:1px solid #140d0d;
+            }
+
+            .brand-logo{
+                width:127px;
+                height:53px;
+                border:1px solid #3A2727;
+                border-radius:8px;
+                background:#1A0D0D;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                text-align:center;
+                font-size:12px;
+                font-weight:700;
+                line-height:1.2;
+                text-transform:uppercase;
+            }
+
+            .nav-link-custom{
+                color:#FFFFFF;
+                font-size:11px;
+                font-weight:700;
+                line-height:16px;
+                letter-spacing:2.4px;
+                text-transform:uppercase;
+                position:relative;
+                padding:0.8rem 1rem;
+            }
+
+            .nav-link-custom.active::after{
+                content:"";
+                position:absolute;
+                left:50%;
+                transform:translateX(-50%);
+                bottom:-6px;
+                width:91px;
+                border-bottom:1px solid #FFFFFF;
+            }
+
+            .lang-box{
+                width:80px;
+                height:37px;
+                border:1px solid #3A2727;
+                border-radius:15px;
+                background:#0A0505;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                gap:8px;
+                font-size:11px;
+                font-weight:700;
+                letter-spacing:2.4px;
+                text-transform:uppercase;
+            }
+
+            .lang-dot{
+                width:10px;
+                height:10px;
+                border:2px solid #D9D9D9;
+                border-radius:50%;
+                display:inline-block;
+            }
+
+            .user-btn{
+                width:39px;
+                height:38px;
+                background:#8A0000;
+                border-radius:10px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#FFFFFF;
+                font-size:14px;
+            }
+
+            .hero-booking{
+                position:relative;
+                min-height:375px;
+                background:
+                    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                    url('/img/book-now-hero.jpg');
+                background-size:cover;
+                background-position:center;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                text-align:center;
+            }
+
+            .hero-booking::after{
+                content:"";
+                position:absolute;
+                inset:0;
+                background:rgba(0,0,0,0.15);
+            }
+
+            .hero-content{
+                position:relative;
+                z-index:2;
+            }
+
+            .hero-title{
+                font-size:36px;
+                font-weight:700;
+                text-transform:uppercase;
+                margin-bottom:18px;
+            }
+
+            .hero-title .accent{
+                color:#8A0000;
+            }
+
+            .hero-subtitle{
+                font-size:15px;
+                font-weight:300;
+                line-height:24px;
+                color:#FFFFFF;
+            }
+
+            .search-section{
+                margin-top:22px;
+            }
+
+            .search-box{
+                background:#1A0D0D;
+                border:1px solid #3A2727;
+                border-radius:20px;
+                padding:18px 24px 22px;
+            }
+
+            .search-label{
+                color:#94A3B8;
+                font-size:13px;
+                font-weight:500;
+                line-height:26px;
+                text-transform:uppercase;
+                margin-bottom:8px;
+            }
+
+            .search-input,
+            .search-select{
+                width:100%;
+                height:40px;
+                background:#0A0505;
+                border:1px solid #3A2727;
+                border-radius:5px;
+                color:#94A3B8;
+                font-size:12px;
+                font-weight:500;
+                padding:0 12px;
+                outline:none;
+            }
+
+            .search-input::placeholder{
+                color:#94A3B8;
+            }
+
+            .btn-update{
+                width:131px;
+                height:40px;
+                background:#8A0000;
+                border:1px solid rgba(58,39,39,0.5);
+                border-radius:5px;
+                color:#FFFFFF;
+                font-size:13px;
+                font-weight:600;
+                text-transform:uppercase;
+            }
+
+            .filters-row{
+                padding:26px 0 10px;
+                display:flex;
+                gap:18px;
+                flex-wrap:wrap;
+            }
+
+            .filter-pill{
+                min-width:172px;
+                height:49px;
+                border:none;
+                border-radius:15px;
+                background:#8A0000;
+                color:#FFFFFF;
+                font-size:13px;
+                font-weight:600;
+                line-height:26px;
+                text-transform:uppercase;
+                padding:0 16px;
+            }
+
+            .bike-card{
+                background:#1A0D0D;
+                border:1px solid #3A2727;
+                border-radius:15px;
+                overflow:hidden;
+                height:100%;
+            }
+
+            .bike-image{
+                height:220px;
+                background:#2A1616;
+                border-bottom:1px solid #3A2727;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#94A3B8;
+                font-size:14px;
+                font-weight:500;
+                text-transform:uppercase;
+                letter-spacing:1px;
+                overflow:hidden;
+            }
+
+            .bike-image img{
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+            }
+
+            .bike-body{
+                padding:12px 14px 16px;
+            }
+
+            .bike-name{
+                font-size:12px;
+                font-weight:700;
+                line-height:40px;
+                text-transform:uppercase;
+                margin-bottom:0;
+                color:#FFFFFF;
+            }
+
+            .bike-desc{
+                font-size:10px;
+                font-weight:300;
+                line-height:20px;
+                text-transform:capitalize;
+                color:#FFFFFF;
+                min-height:92px;
+                margin-bottom:10px;
+            }
+
+            .bike-divider{
+                border-top:1px solid #3A2727;
+                margin:8px 0 12px;
+            }
+
+            .bike-footer{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:12px;
+            }
+
+            .bike-price{
+                font-size:12px;
+                font-weight:700;
+                line-height:40px;
+                text-transform:uppercase;
+                color:#8A0000;
+                margin:0;
+            }
+
+            .bike-btn{
+                min-width:77px;
+                height:31px;
+                border:1px solid #3A2727;
+                border-radius:15px;
+                background:#2D0F0F;
+                color:#FFFFFF;
+                font-size:10px;
+                font-weight:700;
+                text-transform:uppercase;
+            }
+
+            .summary-card{
+                background:#1A0D0D;
+                border:1px solid #3A2727;
+                border-radius:30px;
+                padding:28px 28px 18px;
+                position:sticky;
+                top:95px;
+            }
+
+            .summary-title{
+                font-size:12px;
+                font-weight:700;
+                line-height:40px;
+                text-transform:uppercase;
+                color:#FFFFFF;
+                margin-bottom:8px;
+            }
+
+            .summary-line{
+                border-top:1px solid #3A2727;
+                margin:10px 0 22px;
+            }
+
+            .summary-row{
+                display:flex;
+                justify-content:space-between;
+                gap:16px;
+                margin-bottom:16px;
+            }
+
+            .summary-label{
+                font-size:13px;
+                font-weight:500;
+                line-height:26px;
+                color:#94A3B8;
+                text-transform:uppercase;
+            }
+
+            .summary-value{
+                font-size:10px;
+                font-weight:500;
+                line-height:26px;
+                color:#FFFFFF;
+                text-transform:uppercase;
+                text-align:right;
+            }
+
+            .summary-total{
+                color:#8A0000;
+                font-size:13px;
+                font-weight:600;
+                text-transform:uppercase;
+            }
+
+            .summary-note{
+                font-size:11px;
+                line-height:20px;
+                color:#94A3B8;
+            }
+
+            .footer{
+                margin-top:90px;
+                background:#1A0D0D;
+                border:1px solid #3A2727;
+                padding:60px 0 24px;
+            }
+
+            .footer-logo{
+                width:235px;
+                height:109px;
+                border:1px solid #3A2727;
+                border-radius:8px;
+                background:#2A1616;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                text-align:center;
+                font-size:18px;
+                font-weight:700;
+                text-transform:uppercase;
+                margin-bottom:28px;
+            }
+
+            .footer-social{
+                display:flex;
+                gap:26px;
+                align-items:center;
+                margin-top:18px;
+            }
+
+            .footer-social a{
+                color:#8A0000;
+                font-size:20px;
+                font-weight:700;
+            }
+
+            .footer-heading{
+                color:#8A0000;
+                font-size:11px;
+                font-weight:700;
+                line-height:40px;
+                text-transform:uppercase;
+                margin-bottom:8px;
+            }
+
+            .footer-links a,
+            .footer-text{
+                display:block;
+                color:#FFFFFF;
+                font-size:11px;
+                font-weight:700;
+                line-height:40px;
+                text-transform:uppercase;
+            }
+
+            .footer-bottom{
+                margin-top:34px;
+                padding-top:18px;
+                border-top:3px solid #3A2727;
+                text-align:center;
+                color:#9E9E9E;
+                font-size:11px;
+                font-weight:700;
+                line-height:40px;
+                text-transform:uppercase;
+            }
+
+            @media (max-width: 1199px){
+                .summary-card{
+                    position:static;
+                }
+            }
+
+            @media (max-width: 991px){
+                .nav-link-custom.active::after{
+                    display:none;
+                }
+
+                .hero-booking{
+                    min-height:300px;
+                }
+
+                .hero-title{
+                    font-size:30px;
+                }
+            }
+
+            @media (max-width: 767px){
+                .filters-row{
+                    flex-direction:column;
+                }
+
+                .filter-pill{
+                    width:100%;
+                }
+
+                .btn-update{
+                    width:100%;
+                    margin-top:12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="page-wrapper">
+
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+                <div class="container">
+
+                    <a class="navbar-brand" th:href="@{/}">
+                        <div class="brand-logo">
+                            Go Ride Moto
+                        </div>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+                        <ul class="navbar-nav gap-lg-5">
+
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/}">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom active" th:href="@{/book-now}">Book Now</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/gallery}">Gallery</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/contact}">Contact Us</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="d-none d-lg-flex align-items-center gap-3">
+                        <div class="lang-box">
+                            <span class="lang-dot"></span>
+                            EN/ES
+                        </div>
+                        <a th:href="@{/login}" class="user-btn">👤</a>
+                    </div>
+
+                </div>
+            </nav>
+
+            <!-- HERO -->
+            <section class="hero-booking">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Book <span class="accent">Now</span>
+                    </h1>
+                    <p class="hero-subtitle">Quote and Book Your Adventure</p>
+                </div>
+            </section>
+
+            <!-- FORM PRINCIPAL -->
+            <form th:action="@{/book-now}" method="post">
+
+                <!-- SEARCH SECTION -->
+                <section class="search-section">
+                    <div class="container">
+
+                        <div class="search-box">
+
+                            <div class="row g-4 align-items-end">
+
+                                <div class="col-lg-4 col-md-6">
+                                    <label class="search-label">Pick Up Location</label>
+                                    <select class="search-select" name="ubicacion">
+                                        <option>San José (SJO Airport)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <label class="search-label">Start Date</label>
+                                    <input type="date"
+                                           class="search-input"
+                                           name="fechaInicio"
+                                           required>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <label class="search-label">End Date</label>
+                                    <input type="date"
+                                           class="search-input"
+                                           name="fechaFin"
+                                           required>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="filters-row">
+                            <button type="button" class="filter-pill">Motorcycle Rentals</button>
+                            <button type="button" class="filter-pill">Self-Guided Tours</button>
+                            <button type="button" class="filter-pill">Go Ride Team & Support</button>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <!-- LISTA DE MOTOS -->
+                <section class="py-4">
+                    <div class="container">
+
+                        <div class="row g-4 align-items-start">
+
+                            <!-- CATALOGO -->
+                            <div class="col-xl-8">
+
+                                <div class="row g-4">
+
+                                    <div class="col-md-6" th:each="moto : ${motos}">
+
+                                        <div class="bike-card">
+
+                                            <div class="bike-image">
+
+                                                <img th:if="${moto.imagen != null}"
+                                                     th:src="@{${moto.imagen}}"
+                                                     th:alt="${moto.nombre}">
+
+                                                <span th:if="${moto.imagen == null}">
+                                                    No image available
+                                                </span>
+
+                                            </div>
+
+                                            <div class="bike-body">
+
+                                                <h3 class="bike-name"
+                                                    th:text="${moto.nombre}">
+                                                    Motorcycle
+                                                </h3>
+
+                                                <p class="bike-desc"
+                                                   th:text="${moto.descripcion}">
+                                                    Description
+                                                </p>
+
+                                                <div class="bike-divider"></div>
+
+                                                <div class="bike-footer">
+
+                                                    <p class="bike-price">
+                                                        $<span th:text="${moto.precioPorDia}"></span> / Per Day
+                                                    </p>
+
+                                                    <button type="submit"
+                                                            name="motocicletaId"
+                                                            th:value="${moto.id}"
+                                                            class="bike-btn">
+                                                        Select
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- RESUMEN -->
+                            <div class="col-xl-4">
+
+                                <div class="summary-card">
+
+                                    <h3 class="summary-title">Booking Summary</h3>
+
+                                    <div class="summary-line"></div>
+
+                                    <div class="summary-row">
+                                        <span class="summary-label">Motorcycle</span>
+                                        <span class="summary-value">Select one below</span>
+                                    </div>
+
+                                    <div class="summary-row">
+                                        <span class="summary-label">Duration</span>
+                                        <span class="summary-value">Choose dates</span>
+                                    </div>
+
+                                    <div class="summary-row">
+                                        <span class="summary-label">Date</span>
+                                        <span class="summary-value">Start and end date</span>
+                                    </div>
+
+                                    <div class="summary-line"></div>
+
+                                    <div class="summary-row">
+                                        <span class="summary-total">Total</span>
+                                        <span class="summary-value">Calculated on next step</span>
+                                    </div>
+
+                                    <div class="summary-line"></div>
+
+                                    <p class="summary-note">
+                                        Select your motorcycle and dates to continue to checkout.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+            </form>
+
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <div class="container">
+
+                    <div class="row gy-5">
+
+                        <div class="col-lg-4">
+
+                            <div class="footer-logo">
+                                Go Ride Moto<br>
+                                Costa Rica Moto Adventures
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-3">
+
+                            <h4 class="footer-heading">Menu</h4>
+
+                            <div class="footer-links">
+                                <a th:href="@{/}">Home</a>
+                                <a th:href="@{/book-now}">Book Now</a>
+                                <a th:href="@{/about}">About Us</a>
+                                <a th:href="@{/gallery}">Gallery</a>
+                                <a th:href="@{/contact}">Contact Us</a>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-2">
+                            <h4 class="footer-heading">Work Hours</h4>
+                            <div class="footer-text">Everyday 8AM - 5PM</div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <h4 class="footer-heading">Contact Us</h4>
+                            <div class="footer-text">+506 8526-5489</div>
+                            <div class="footer-text">goride@gmail.com</div>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-bottom">
+                        © 2026 Go Ride Moto | Costa Rica | Pura Vida. All Rights Reserved
+                    </div>
+
+                </div>
+            </footer>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
