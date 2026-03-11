@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer th:fragment="footer" class="footer">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-4">
+                <div class="footer-logo">
+                    Go Ride Moto<br>
+                    Costa Rica Moto Adventures
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <h4 class="footer-heading">Menu</h4>
+                <div class="footer-links">
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/book-now}">Book Now</a>
+                    <a th:href="@{/gallery}">Gallery</a>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <h4 class="footer-heading">Work Hours</h4>
+                <div class="footer-text">Everyday 8AM - 5PM</div>
+            </div>
+
+            <div class="col-lg-3">
+                <h4 class="footer-heading">Contact Us</h4>
+                <div class="footer-text">+506 8526-5489</div>
+                <div class="footer-text">goride@gmail.com</div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Go Ride Moto | Costa Rica | Pura Vida. All Rights Reserved
+        </div>
+    </div>
+</footer>
+</body>
+</html>
