@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{faq.title}">FAQ | Go Ride Moto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0A0505; color: #fff; font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+        .faq-section { padding: 80px 0; }
+        .faq-title { font-size: 42px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+        .faq-subtitle { color: #94A3B8; font-size: 16px; margin-bottom: 60px; }
+        .faq-item { background: #1A0D0D; border: 1px solid #3A2727; border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+        .faq-question { padding: 22px 28px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .faq-question:hover { color: #F87171; }
+        .faq-icon { font-size: 20px; color: #8A0000; transition: transform 0.3s; }
+        .faq-icon.open { transform: rotate(45deg); }
+        .faq-answer { padding: 0 28px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; color: #CBD5E1; font-size: 14px; line-height: 26px; }
+        .faq-answer.open { max-height: 300px; padding: 0 28px 22px; }
+        .faq-category { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8A0000; margin: 40px 0 16px; }
+        .cta-box { background: #1A0D0D; border: 1px solid #3A2727; border-radius: 20px; padding: 48px; text-align: center; margin-top: 60px; }
+        .cta-title { font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+        .cta-text { color: #94A3B8; margin-bottom: 28px; }
+        .btn-cta { background: #8A0000; border: none; color: #fff; font-weight: 700; text-transform: uppercase; padding: 14px 40px; border-radius: 8px; font-size: 15px; }
+        .btn-cta:hover { background: #a00000; color: #fff; }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container faq-section">
+    <div class="text-center">
+        <h1 class="faq-title" th:text="#{faq.title}">Frequently Asked Questions</h1>
+        <p class="faq-subtitle" th:text="#{faq.subtitle}">Everything you need to know before your ride</p>
+    </div>
+
+    <!-- RESERVAS -->
+    <div class="faq-category">Reservations</div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            How do I make a reservation?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            Go to Book Now, select a motorcycle and your desired dates, then fill in your personal details in the checkout form. Your reservation will be confirmed immediately.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            Can I cancel or modify my reservation?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            To cancel or modify a reservation, please contact us directly via the Contact Us form or by phone at +506 8526-5489. Our team will assist you as soon as possible.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            Is there a minimum rental period?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            Yes, the minimum rental period is 1 day. There is no maximum limit — you can rent for as many days as you need.
+        </div>
+    </div>
+
+    <!-- REQUISITOS -->
+    <div class="faq-category">Requirements</div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            What documents do I need to rent a motorcycle?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            You will need a valid passport and a current driver's license with a motorcycle endorsement from your home country. International licenses are also accepted.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            What is the minimum age to rent?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            You must be at least 21 years old to rent a motorcycle with GoRideMoto.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            Is prior motorcycle experience required?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            Yes, prior motorcycle riding experience is required. A valid motorcycle license is mandatory. We strongly recommend experience on similar terrain before tackling Costa Rica's roads.
+        </div>
+    </div>
+
+    <!-- PAGOS Y SEGUROS -->
+    <div class="faq-category">Payment & Insurance</div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            What payment methods are accepted?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            We accept cash (USD and CRC colones) and major credit cards. Payment is made at pickup. Online payment is coming soon.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            Does the rental include insurance?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            Basic third-party liability insurance is included in all rentals as required by Costa Rican law. Optional comprehensive coverage is available for an additional daily fee.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            Is a security deposit required?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            Yes, a refundable security deposit is required at pickup. The amount varies depending on the motorcycle model. It will be returned in full upon safe return of the motorcycle.
+        </div>
+    </div>
+
+    <!-- MOTOS Y RUTAS -->
+    <div class="faq-category">Motorcycles & Routes</div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            What types of motorcycles are available?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            We offer adventure and dual-sport motorcycles ideal for Costa Rica's terrain, including models like the Honda CRF300 Rally, Kawasaki KLR650, and Honda CRF250L. Check our Book Now section for current availability.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            Can I take the motorcycle to another country?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            No. Motorcycles must remain within Costa Rica at all times. Taking a rental motorcycle outside the country is strictly prohibited and will void the insurance coverage.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+            What happens if the motorcycle breaks down?
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+            In case of a breakdown or accident, contact us immediately at +506 8526-5489. We provide roadside assistance and will arrange a replacement motorcycle if needed.
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+        <h2 class="cta-title">Still have questions?</h2>
+        <p class="cta-text">Our team is happy to help. Send us a message and we'll get back to you quickly.</p>
+        <a th:href="@{/contact}" class="btn btn-cta">Contact Us</a>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function toggle(el) {
+        const answer = el.nextElementSibling;
+        const icon = el.querySelector('.faq-icon');
+        const isOpen = answer.classList.contains('open');
+        // Cerrar todos
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
+        // Abrir el clickeado si estaba cerrado
+        if (!isOpen) {
+            answer.classList.add('open');
+            icon.classList.add('open');
+        }
+    }
+</script>
+</body>
+</html>
