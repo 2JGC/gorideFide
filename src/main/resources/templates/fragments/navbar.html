@@ -1,26 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <body>
-        <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark navbar-custom">
-            <div class="container">
-                <a class="navbar-brand" th:href="@{/}">
-                    <div class="brand-logo">Go Ride Moto</div>
-                </a>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark navbar-custom site-navbar">
+    <style>
+        .site-navbar{ background:#0A0505; min-height:73px; border-bottom:1px solid #1a1111; }
+        .site-navbar .brand-logo{ width:150px; height:53px; display:flex; align-items:center; justify-content:center; }
+        .site-navbar .brand-logo-img{ max-width:150px; max-height:53px; width:100%; height:auto; object-fit:contain; display:block; }
+        .site-navbar .nav-link-custom{ font-weight:700; font-size:11px; line-height:16px; letter-spacing:1px; text-transform:uppercase; color:#fff; padding:0.8rem 0.7rem; }
+        .site-navbar .nav-link-custom:hover{ color:#f3b0b0; }
+        .site-navbar .user-btn{ min-width:39px; height:38px; padding:0 12px; border-radius:8px; background:#8A0000; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; font-weight:700; text-decoration:none; }
+        @media (min-width: 992px){
+            .site-navbar .container{ position:relative; min-height:53px; }
+            .site-navbar .navbar-brand{ position:relative; z-index:2; }
+            .site-navbar #mainNavbar{ position:absolute; left:50%; transform:translateX(-50%); flex-grow:0; width:auto; white-space:nowrap; }
+            .site-navbar .navbar-actions{ position:relative; z-index:2; margin-left:auto; }
+        }
+    </style>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
-                    <ul class="navbar-nav gap-lg-5">
-                        <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/book-now}">Book Now</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/gallery}">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/contact}">Contact Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                    </ul>
-                </div>
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <div class="brand-logo">
+                <img th:src="@{/img/logo-goride.png}" alt="Go Ride Moto" class="brand-logo-img">
             </div>
-        </nav>
-    </body>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+            <ul class="navbar-nav gap-lg-3">
+                <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/book-now}">Book Now</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/gallery}">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/contact}">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/about}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-custom" th:href="@{/faq}">FAQ</a></li>
+                <!-- My Profile: solo visible para autenticados -->
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link nav-link-custom" th:href="@{/perfil}">My Profile</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link nav-link-custom" th:href="@{/admin}">Admin</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="navbar-actions d-none d-lg-flex align-items-center gap-2">
+            <!-- Sin sesión -->
+            <a sec:authorize="isAnonymous()" th:href="@{/login}" class="user-btn ms-1">Login</a>
+
+            <!-- Con sesión -->
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="m-0">
+                <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+</body>
 </html>

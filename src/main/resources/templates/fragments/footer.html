@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<footer th:fragment="footer" class="footer">
+<footer th:fragment="footer" class="footer site-footer">
+    <style>
+        .site-footer{ background:#1A0D0D; border-top:1px solid #3A2727; padding:60px 0 24px; color:#fff; }
+        .site-footer .footer-logo{ width:235px; min-height:109px; display:flex; align-items:center; justify-content:flex-start; margin-bottom:20px; }
+        .site-footer .footer-logo-img{ max-width:235px; max-height:109px; width:100%; height:auto; object-fit:contain; display:block; }
+        .site-footer .footer-heading{ color:#8A0000; font-size:11px; font-weight:700; line-height:40px; text-transform:uppercase; margin-bottom:8px; }
+        .site-footer .footer-links a, .site-footer .footer-text{ display:block; color:#fff; font-size:11px; font-weight:700; line-height:40px; text-transform:uppercase; text-decoration:none; }
+        .site-footer .footer-links a:hover{ color:#f3b0b0; }
+        .site-footer .footer-bottom{ margin-top:34px; padding-top:18px; border-top:3px solid #3A2727; text-align:center; color:#9E9E9E; font-size:11px; font-weight:700; line-height:24px; text-transform:uppercase; }
+        .social-icons{ display:flex; gap:14px; margin-top:16px; }
+        .social-icon-btn{ width:38px; height:38px; border-radius:50%; background:#2A1616; border:1px solid #3A2727; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:700; text-decoration:none; transition:border-color .2s, background .2s; }
+        .social-icon-btn:hover{ background:#8A0000; border-color:#8A0000; color:#fff; }
+    </style>
+
     <div class="container">
         <div class="row gy-5">
             <div class="col-lg-4">
                 <div class="footer-logo">
-                    Go Ride Moto<br>
-                    Costa Rica Moto Adventures
+                    <img th:src="@{/img/logo-goride.png}" alt="Go Ride Moto" class="footer-logo-img">
+                </div>
+                <!-- Redes sociales HU05 -->
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/goridemoto" target="_blank"
+                       class="social-icon-btn" title="Facebook" aria-label="Facebook">f</a>
+                    <a href="https://www.instagram.com/goridemoto" target="_blank"
+                       class="social-icon-btn" title="Instagram" aria-label="Instagram">in</a>
+                    <a href="https://wa.me/50685265489" target="_blank"
+                       class="social-icon-btn" title="WhatsApp" aria-label="WhatsApp">W</a>
+                    <a href="https://www.tiktok.com/@goridemoto" target="_blank"
+                       class="social-icon-btn" title="TikTok" aria-label="TikTok">T</a>
                 </div>
             </div>
 
@@ -17,6 +40,10 @@
                     <a th:href="@{/}">Home</a>
                     <a th:href="@{/book-now}">Book Now</a>
                     <a th:href="@{/gallery}">Gallery</a>
+                    <a th:href="@{/contact}">Contact Us</a>
+                    <a th:href="@{/about}">About Us</a>
+                    <a th:href="@{/faq}">FAQ</a>
+                    <a th:href="@{/terms}">Terms and Conditions</a>
                 </div>
             </div>
 
@@ -33,7 +60,7 @@
         </div>
 
         <div class="footer-bottom">
-            © 2026 Go Ride Moto | Costa Rica | Pura Vida. All Rights Reserved
+            &copy; 2026 Go Ride Moto | Costa Rica | Pura Vida. All Rights Reserved
         </div>
     </div>
 </footer>
