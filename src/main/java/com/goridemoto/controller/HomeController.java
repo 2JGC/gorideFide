@@ -7,12 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-
     private final MotocicletaService motocicletaService;
-
-    public HomeController(MotocicletaService motocicletaService) {
-        this.motocicletaService = motocicletaService;
-    }
+    public HomeController(MotocicletaService motocicletaService) { this.motocicletaService = motocicletaService; }
 
     @GetMapping("/")
     public String inicio(Model model) {
