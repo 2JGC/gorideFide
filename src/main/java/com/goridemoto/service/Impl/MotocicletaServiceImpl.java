@@ -15,18 +15,8 @@ public class MotocicletaServiceImpl implements MotocicletaService {
         this.motocicletaRepository = motocicletaRepository;
     }
 
-    @Override
-    public List<Motocicleta> listarDisponibles() {
-        return motocicletaRepository.findByDisponibleTrue();
-    }
-
-    @Override
-    public Motocicleta buscarPorId(Long id) {
-        return motocicletaRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public void guardar(Motocicleta motocicleta) {
-        motocicletaRepository.save(motocicleta);
-    }
+    @Override public List<Motocicleta> listarDisponibles() { return motocicletaRepository.findByDisponibleTrue(); }
+    @Override public List<Motocicleta> listarTodas() { return motocicletaRepository.findAll(); }
+    @Override public Motocicleta buscarPorId(Long id) { return motocicletaRepository.findById(id).orElse(null); }
+    @Override public void guardar(Motocicleta motocicleta) { motocicletaRepository.save(motocicleta); }
 }
