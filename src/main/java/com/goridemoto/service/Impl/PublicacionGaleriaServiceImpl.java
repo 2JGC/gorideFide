@@ -15,13 +15,6 @@ public class PublicacionGaleriaServiceImpl implements PublicacionGaleriaService 
         this.repository = repository;
     }
 
-    @Override
-    public List<PublicacionGaleria> listar() {
-        return repository.findAll();
-    }
-
-    @Override
-    public void guardar(PublicacionGaleria publicacion) {
-        repository.save(publicacion);
-    }
+    @Override public List<PublicacionGaleria> listar() { return repository.findAll(); }
+    @Override public void guardar(PublicacionGaleria publicacion) { repository.save(publicacion); }
 }
