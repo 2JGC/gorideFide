@@ -15,13 +15,6 @@ public class ContactoMensajeServiceImpl implements ContactoMensajeService {
         this.contactoMensajeRepository = contactoMensajeRepository;
     }
 
-    @Override
-    public void guardar(ContactoMensaje contactoMensaje) {
-        contactoMensajeRepository.save(contactoMensaje);
-    }
-
-    @Override
-    public List<ContactoMensaje> listar() {
-        return contactoMensajeRepository.findAll();
-    }
+    @Override public void guardar(ContactoMensaje contactoMensaje) { contactoMensajeRepository.save(contactoMensaje); }
+    @Override public List<ContactoMensaje> listar() { return contactoMensajeRepository.findAll(); }
 }
