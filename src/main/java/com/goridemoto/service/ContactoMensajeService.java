@@ -1,5 +1,4 @@
 package com.goridemoto.service;
-
 import com.goridemoto.domain.ContactoMensaje;
 import java.util.List;
 public interface ContactoMensajeService {

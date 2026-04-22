@@ -365,6 +365,10 @@
                 You have logged out successfully.
             </div>
 
+            <div th:if="${passwordActualizado}" class="logout-box" th:text="${passwordActualizado}">
+                Password updated successfully.
+            </div>
+
             <form class="login-form" th:action="@{/login}" method="post">
                 <div class="login-field">
                     <label class="login-label" for="email">Email Address</label>
@@ -383,7 +387,7 @@
                 <div class="login-field">
                     <div class="login-label-row">
                         <label class="login-label" for="password">Password</label>
-                        <a href="#" class="forgot-link">Forgot Password?</a>
+                        <a th:href="@{/forgot-password}" class="forgot-link">Forgot Password?</a>
                     </div>
 
                     <div class="input-wrap">

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +42,73 @@
             width:100%;
             overflow-x:hidden;
             background:var(--bg);
+        }
+        .navbar-custom{
+            background:#0A0505;
+            min-height:73px;
+            border-bottom:1px solid #140d0d;
+        }
+
+        .brand-logo{
+            width:127px;
+            height:53px;
+            border:1px solid #3A2727;
+            border-radius:8px;
+            background:#1A0D0D;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            font-size:12px;
+            font-weight:700;
+            line-height:1.2;
+            text-transform:uppercase;
+        }
+
+        .nav-link-custom{
+            color:#FFFFFF;
+            font-size:11px;
+            font-weight:700;
+            line-height:16px;
+            letter-spacing:2.4px;
+            text-transform:uppercase;
+            position:relative;
+            padding:0.8rem 1rem;
+        }
+
+        .nav-link-custom.active::after{
+            content:"";
+            position:absolute;
+            left:50%;
+            transform:translateX(-50%);
+            bottom:-6px;
+            width:91px;
+            border-bottom:1px solid #FFFFFF;
+        }
+
+        .lang-box{
+            width:80px;
+            height:37px;
+            border:1px solid var(--border);
+            border-radius:15px;
+            background:#0A0505;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            font-size:11px;
+            font-weight:700;
+            letter-spacing:2.4px;
+            text-transform:uppercase;
+            color:var(--white);
+        }
+
+        .lang-dot{
+            width:10px;
+            height:10px;
+            border:2px solid #D9D9D9;
+            border-radius:50%;
+            display:inline-block;
         }
 
         .topbar{
@@ -125,8 +192,10 @@
         }
 
         .user-btn{
-            width:39px;
+            min-width:39px;
+            width:auto;
             height:38px;
+            padding:0 12px;
             border-radius:10px;
             background:var(--red);
             display:flex;
@@ -527,13 +596,35 @@
             line-height:1;
         }
 
-        .faq-answer{
+                .faq-answer{
             border-top:1px solid rgba(255,255,255,.05);
-            padding:16px 24px 24px 24px;
+            padding:0 24px;
             font-size:16px;
             line-height:26px;
             color:var(--muted);
             max-width:816px;
+            max-height:0;
+            opacity:0;
+            overflow:hidden;
+            transition:max-height .25s ease, opacity .2s ease, padding .25s ease;
+        }
+
+        .faq-item.is-open .faq-answer{
+            max-height:220px;
+            opacity:1;
+            padding:16px 24px 24px 24px;
+        }
+
+        .faq-icon{
+            color:var(--red);
+            font-size:28px;
+            line-height:1;
+            transition:transform .2s ease;
+            flex-shrink:0;
+        }
+
+        .faq-item.is-open .faq-icon{
+            transform:rotate(45deg);
         }
 
         .footer{
@@ -700,23 +791,7 @@
 <body>
 <div class="page-wrapper">
 
-    <header class="topbar">
-        <div class="inner">
-            <a th:href="@{/}" class="logo-box">logo</a>
-
-            <nav class="menu-center">
-                <a th:href="@{/}">Home</a>
-                <a th:href="@{/book-now}">Book Now</a>
-                <a th:href="@{/gallery}">Gallery</a>
-                <a th:href="@{/contact}" class="active">Contact Us</a>
-            </nav>
-
-            <div class="top-actions">
-                <div class="lang-switch">EN/ES</div>
-                <div class="user-btn">●</div>
-            </div>
-        </div>
-    </header>
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <section class="hero">
         <div class="hero-content">
@@ -759,43 +834,52 @@
 
                 <button type="submit" class="send-btn">
                     <span>Send Message</span>
-                    <span>➤</span>
+                    <span>&gt;</span>
                 </button>
             </form>
         </div>
 
         <div class="info-side">
             <div class="info-card">
-                <div class="icon-wrap">⌖</div>
+                <div class="icon-wrap">LOC</div>
                 <h3>Our Location</h3>
-                <p>Paseo Colón, San José, Costa Rica</p>
+                <p>Paseo Colon, San Jose, Costa Rica</p>
             </div>
 
             <div class="info-card">
-                <div class="icon-wrap">✆</div>
+                <div class="icon-wrap">TEL</div>
                 <h3>Call Us</h3>
                 <p>+506 8888-0000</p>
             </div>
 
             <div class="info-card">
-                <div class="icon-wrap">✉</div>
+                <div class="icon-wrap">MAIL</div>
                 <h3>Email Us</h3>
                 <p>info@goridemoto.com</p>
             </div>
 
             <div class="info-card">
-                <div class="icon-wrap">◷</div>
+                <div class="icon-wrap">HRS</div>
                 <h3>Working Hours</h3>
                 <p>Mon - Sun: 8:00 AM - 6:00 PM</p>
             </div>
 
             <div class="map-box">
-                <div class="map-placeholder"></div>
-
+                <!-- Google Maps - Paseo Colon, San José, Costa Rica (HU39) -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.9!2d-84.0917!3d9.9325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e343e2bb0f9b%3A0x5d6f4b5b5b5b5b5b!2sPaseo%20Col%C3%B3n%2C%20San%20Jos%C3%A9%2C%20Costa%20Rica!5e0!3m2!1sen!2scr!4v1700000000000!5m2!1sen!2scr"
+                    width="100%" height="100%"
+                    style="border:0; position:absolute; inset:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="GoRideMoto Location">
+                </iframe>
                 <div class="map-overlay">
                     <div class="title">Main Office</div>
-                    <div class="text">San José, Costa Rica</div>
-                    <div class="link">Get Directions</div>
+                    <div class="text">Paseo Colón, San José</div>
+                    <a href="https://maps.google.com/?q=Paseo+Colon+San+Jose+Costa+Rica"
+                       target="_blank" class="link">Get Directions ↗</a>
                 </div>
             </div>
         </div>
@@ -809,7 +893,7 @@
 
         <div class="testimonial-grid">
             <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
+                <div class="stars">*****</div>
                 <p class="testimonial-text">
                     "Incredible experience! The bike was in perfect condition and the support team helped us plan an amazing route through the Nicoya Peninsula."
                 </p>
@@ -823,7 +907,7 @@
             </div>
 
             <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
+                <div class="stars">*****</div>
                 <p class="testimonial-text">
                     "Best way to see Costa Rica. GoRide Moto made everything so easy. The insurance coverage gave us total peace of mind during the trip."
                 </p>
@@ -837,7 +921,7 @@
             </div>
 
             <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
+                <div class="stars">*****</div>
                 <p class="testimonial-text">
                     "The staff is extremely knowledgeable. They provided us with gear that actually fit and worked well. Will definitely rent again!"
                 </p>
@@ -858,11 +942,11 @@
             <div class="section-line"></div>
         </div>
 
-        <div class="faq-list">
-            <div class="faq-item">
-                <button class="faq-question" type="button">
+                        <div class="faq-list">
+            <div class="faq-item is-open">
+                <button class="faq-question" type="button" aria-expanded="true">
                     <span>What documents do I need to rent a motorcycle?</span>
-                    <span>⌃</span>
+                    <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
                     To rent a motorcycle with GoRide Moto, you will need a valid passport and a current driver's license with a motorcycle endorsement from your home country.
@@ -870,87 +954,71 @@
             </div>
 
             <div class="faq-item">
-                <button class="faq-question" type="button">
+                <button class="faq-question" type="button" aria-expanded="false">
                     <span>Is insurance included?</span>
-                    <span>⌄</span>
+                    <span class="faq-icon">+</span>
                 </button>
+                <div class="faq-answer">
+                    Basic insurance can be included depending on the rental plan, and we also offer optional upgraded coverage for greater peace of mind on longer rides.
+                </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question" type="button">
+                <button class="faq-question" type="button" aria-expanded="false">
                     <span>What is the security deposit?</span>
-                    <span>⌄</span>
+                    <span class="faq-icon">+</span>
                 </button>
+                <div class="faq-answer">
+                    The security deposit varies by motorcycle model and rental duration. We confirm the exact amount before checkout so you know the hold required in advance.
+                </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question" type="button">
+                <button class="faq-question" type="button" aria-expanded="false">
                     <span>Can I cross borders with the rental bike?</span>
-                    <span>⌄</span>
+                    <span class="faq-icon">+</span>
                 </button>
+                <div class="faq-answer">
+                    Cross-border travel usually requires prior authorization and may not be available for every route or bike. Contact us first so we can confirm the requirements.
+                </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question" type="button">
+                <button class="faq-question" type="button" aria-expanded="false">
                     <span>What happens if I have a breakdown?</span>
-                    <span>⌄</span>
+                    <span class="faq-icon">+</span>
                 </button>
+                <div class="faq-answer">
+                    If you experience a breakdown, our team will guide you through the next steps and coordinate assistance as quickly as possible based on your location.
+                </div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-question" type="button">
+                <button class="faq-question" type="button" aria-expanded="false">
                     <span>Are helmets and gear provided?</span>
-                    <span>⌄</span>
+                    <span class="faq-icon">+</span>
                 </button>
+                <div class="faq-answer">
+                    Yes, helmets and essential riding gear can be provided with your rental, subject to size availability and the package you choose.
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-logo-placeholder">logo</div>
-
-                    <div class="socials">
-                        <div class="social">f</div>
-                        <div class="social">◎</div>
-                        <div class="social">◔</div>
-                        <div class="social">✉</div>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="footer-heading">Menu</h3>
-                    <div class="footer-links">
-                        <a th:href="@{/}">Home</a>
-                        <a th:href="@{/book-now}">Book Now</a>
-                        <a th:href="@{/about}">About Us</a>
-                        <a th:href="@{/gallery}">Gallery</a>
-                        <a th:href="@{/faqs}">FAQs</a>
-                        <a th:href="@{/contact}">Contact Us</a>
-                        <a th:href="@{/terms}">Terms and Conditions</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="footer-heading">Work Hours</h3>
-                    <div class="footer-links">
-                        <div>Everyday 8AM - 5PM</div>
-                    </div>
-
-                    <h3 class="footer-heading" style="margin-top:18px;">Contact Us</h3>
-                    <div class="footer-links">
-                        <div>+506 8526-5489</div>
-                        <div>goride@gmail.com</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-divider"></div>
-            <div class="footer-copy">© 2026 Go Ride Moto | Costa Rica | Pura Vida • All Rights Reserved</div>
-        </div>
-    </footer>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
+<script>
+    document.querySelectorAll('.faq-question').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var item = button.closest('.faq-item');
+            var isOpen = item.classList.contains('is-open');
+
+            item.classList.toggle('is-open', !isOpen);
+            button.setAttribute('aria-expanded', String(!isOpen));
+        });
+    });
+</script>
 </body>
 </html>
+
+

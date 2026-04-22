@@ -1,5 +1,6 @@
 package com.goridemoto.domain;
 
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +18,8 @@ public class Usuario {
     private String password;
 
     private String rol;
+    private String resetPasswordToken;
+    private LocalDateTime resetPasswordTokenExpiration;
 
     public Usuario() {}
     public Long getId() { return id; }
@@ -29,4 +32,8 @@ public class Usuario {
     public void setPassword(String password) { this.password = password; }
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
+    public String getResetPasswordToken() { return resetPasswordToken; }
+    public void setResetPasswordToken(String resetPasswordToken) { this.resetPasswordToken = resetPasswordToken; }
+    public LocalDateTime getResetPasswordTokenExpiration() { return resetPasswordTokenExpiration; }
+    public void setResetPasswordTokenExpiration(LocalDateTime resetPasswordTokenExpiration) { this.resetPasswordTokenExpiration = resetPasswordTokenExpiration; }
 }

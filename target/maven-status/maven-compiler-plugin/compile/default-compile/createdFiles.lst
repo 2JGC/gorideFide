@@ -1,3 +1,4 @@
+com\goridemoto\controller\PerfilController.class
 com\goridemoto\service\impl\CustomUserDetailsService.class
 com\goridemoto\repository\UsuarioRepository.class
 com\goridemoto\domain\PublicacionGaleria.class
@@ -10,12 +11,15 @@ com\goridemoto\service\ReservaService.class
 com\goridemoto\config\PasswordConfig.class
 com\goridemoto\service\impl\PublicacionGaleriaServiceImpl.class
 com\goridemoto\service\PublicacionGaleriaService.class
+com\goridemoto\service\impl\EmailServiceImpl.class
 com\goridemoto\GoRideMotoApplication.class
 com\goridemoto\controller\RegistroController.class
 com\goridemoto\domain\Usuario.class
 com\goridemoto\controller\ReservaController.class
 com\goridemoto\service\UsuarioService.class
+com\goridemoto\controller\LocaleController.class
 com\goridemoto\domain\Reserva.class
+com\goridemoto\service\impl\ReservaServiceImpl.class
 com\goridemoto\controller\TermsController.class
 com\goridemoto\service\FirebaseStorageService.class
 com\goridemoto\controller\LoginController.class
@@ -25,6 +29,7 @@ com\goridemoto\config\WebConfig.class
 com\goridemoto\repository\PublicacionGaleriaRepository.class
 com\goridemoto\service\impl\UsuarioServiceImpl.class
 com\goridemoto\controller\HomeController.class
+com\goridemoto\service\impl\PasswordResetServiceImpl.class
 com\goridemoto\service\MotocicletaService.class
 com\goridemoto\controller\AdminController.class
 com\goridemoto\repository\MotocicletaRepository.class
@@ -34,5 +39,6 @@ com\goridemoto\controller\ContactoController.class
 com\goridemoto\config\ViewSessionAdvice.class
 com\goridemoto\controller\GaleriaController.class
 com\goridemoto\domain\ContactoMensaje.class
+com\goridemoto\service\impl\ContactoMensajeServiceImpl.class
 com\goridemoto\service\EmailService.class
 com\goridemoto\repository\ContactoMensajeRepository.class

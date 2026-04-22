@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(
                 "/", "/book-now", "/book-now/**", "/transaction-completed",
                 "/gallery", "/contact", "/login", "/register", "/about",
+                "/forgot-password", "/reset-password",
                 "/faq", "/faqs", "/terms", "/cambiar-idioma",
                 "/css/**", "/img/**", "/uploads/**"
             ).permitAll()
