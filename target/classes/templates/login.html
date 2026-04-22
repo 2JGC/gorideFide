@@ -418,16 +418,16 @@
             </div>
 
             <div class="social-row">
-                <button type="button" class="social-btn">
-                    <span class="social-icon">G</span>
-                    <span>Google</span>
-                </button>
-
-                <button type="button" class="social-btn">
-                    <span class="social-icon">f</span>
-                    <span>Facebook</span>
-                </button>
+                <!-- Login con Meta (Facebook) - OAuth2 -->
+                <a href="/oauth2/authorization/facebook" class="social-btn" style="text-decoration:none;">
+                    <span class="social-icon" style="background:#1877F2; color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px;">f</span>
+                    <span>Continue with Facebook</span>
+                </a>
             </div>
+            <p style="color:#64748B; font-size:11px; text-align:center; margin-top:12px;">
+                By continuing, you accept our
+                <a th:href="@{/terms}" style="color:#F20D0D;">Terms and Conditions</a>.
+            </p>
         </div>
 
         <div class="login-footer-glow"></div>
