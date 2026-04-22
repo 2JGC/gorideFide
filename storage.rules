@@ -1,0 +1,20 @@
+// Reglas de Firebase Storage - GoRideMoto
+// Pegar en: Firebase Console → Storage → Rules → Publicar
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Carpeta motos: lectura pública, escritura solo desde servidor
+    match /motos/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Carpeta galeria: lectura pública, escritura solo desde servidor
+    match /galeria/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

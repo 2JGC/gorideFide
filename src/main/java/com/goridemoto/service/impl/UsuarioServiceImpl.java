@@ -12,8 +12,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository,
-                              BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, BCryptPasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -22,6 +21,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void registrarUsuario(Usuario usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuario.setRol("USER");
+        usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public void actualizarPerfil(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
 }

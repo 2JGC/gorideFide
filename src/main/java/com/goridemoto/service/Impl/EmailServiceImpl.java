@@ -1,4 +1,4 @@
-package com.goridemoto.service.Impl;
+package com.goridemoto.service.impl;
 
 import com.goridemoto.domain.Motocicleta;
 import com.goridemoto.domain.Reserva;
